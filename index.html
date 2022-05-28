@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Интернет-магазин</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
+    integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <div class="logo">Интернет-магазин</div>
+            <form action="#" class="search-form" @submit.prevent="filter">
+                <input type="text" class="search-field" v-model="userSearch">
+                <button class="btn-search" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            <button class="btn-cart" type="button" @click="show = !show">Корзина</button>
+            <div v-show="show" class="basket">
+                <div class="basketRow basketHeader">
+                    <div>Название товара</div>
+                    <div>Количество</div>
+                    <div>Цена за шт.</div>
+                    <div>Итого</div>
+                </div>
+                <div class="basket-buy">
+                    <div v-for="baksetItem in basket.items" class="basketRow" :key="baksetItem.id">
+                        <div>{{baksetItem.title}}</div>
+                        <div>
+                            <span class="productCount">{{baksetItem.quantity}}</span> шт.
+                        </div>
+                        <div>${{baksetItem.price}}</div>
+                        <div>
+                            <span class="productTotalRow">${{baksetItem.price * baksetItem.quantity}}</span>
+                        </div>
+                        <div>
+                            <button @click="remove(baksetItem)" class="clearTheProductList">Очистить</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="basketTotal">
+                    Товаров в корзине на сумму:
+                    <span class="basketTotalValue">${{ basket.totalSum() }}</span>
+                </div>
+                <button @click="clearBasket" class="clearTheList">Очистить всё</button>
+            </div>
+        </header>
+        <main>
+            <div class="products">
+                <div class="product-item" v-for="product in filteredProducts">
+                    <img v-bind:src="product.img" alt="Some img">
+                    <div class="desc">
+                        <h3>{{ product.title }}</h3>
+                        <p>{{ product.price }} &#8381;</p>
+                        <button @click="addToCart(product)" class="buy-btn">Купить</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!--beforebegin-->
+        <!--<p>-->
+        <!--afterbegin-->
+        <!--<span></span>-->
+        <!--beforeend-->
+        <!--</p> -->
+        <!--afterend-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="js/main.js"></script>
+    
+</body>
+
+</html>
